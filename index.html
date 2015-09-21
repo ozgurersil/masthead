@@ -1,0 +1,132 @@
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="video-js.css">
+	<link href='https://fonts.googleapis.com/css?family=Bitter&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="js/video.js"></script>
+
+	<style type="text/css">
+		
+		#masthead{
+			width: 950px;
+			height: 250px;
+			background-color: #ececec;
+		}
+
+		.videoPlayer {
+			position: absolute;
+			top:20px;
+			left:530px;
+		}
+
+		#mutebt{
+			width: 30px;
+		    height: 30px;
+		    position: absolute;
+		    top: 219px;
+		    left: 531px;
+		    text-align: center;
+		    cursor: pointer;
+		    background-repeat: no-repeat;
+		    background-color: #fff;
+		}
+
+		.message{
+			position: absolute;
+			top:30px;
+			left:100px;
+			font-family: 'Bitter', serif;
+			font-size: 30px;
+		}
+		.logo{
+			position: absolute;
+			top:40px;
+			
+			left:100px;
+		}
+
+	</style>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			 
+			 /* Settings */
+			 var bgImage = [%bgImage%];
+			 var imageDiv = "<img src='"+bgImage+"'/>";
+			 var isMute = true;
+			 
+			 function init(){
+			 	$("#bgImage").append(imageDiv);
+ 			 	initVideo();
+ 			 }
+
+			 function initVideo(){
+			 
+			 	 var videofiles =  "<video id='video_1' class='video-js vjs-default-skin' controls preload='auto' width='350' height='230' poster='"+[%videoPoster%]+"'><source src='"+[%Videomp4%]+"' type='video/mp4' /><source src='"+[%Videogv%]+"' type='video/ogg' /><p class='vjs-no-js'>To view this video please enable JavaScript, and consider upgrading to a web browser that <a href='http://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a></p>";
+
+
+				$(".videoPlayer").append(videofiles);
+
+				videojs.options.flash.swf = "video-js.swf";
+
+				var player = videojs('video_1', {}, function() {});
+				      player.ready(function(){
+					      //start event
+					      this.on('play', function() {
+						    var duration_time =  Math.floor(this.duration());
+						    //loadPixelEvent();
+						  });
+						  // end event
+					      this.on('ended', function() {
+						   	$(".vjs-poster").css("display","inline");
+						  });
+
+					 });
+
+				 var mute = isMute == false ? $('#mutebt').css('background-image', 'url(images/unmute.png)') : $('#mutebt').css('background-image', 'url(images/mute.png)');
+				 if(isMute){
+				 	decideMute(true)
+				 }
+			
+				 $("#mutebt").click(function(){
+				   	var mute = isMute == false ? videojs("video_1").ready(function(){
+								decideMute(true)
+								$(".output").append('video muted<br>');
+								}) : videojs("video_1").ready(function(){
+								decideMute(false)
+								$(".output").append('video unmuted<br>');
+					});
+				 });
+
+				
+			 }
+		
+			 function decideMute(muteStatus){
+			 	var muteState = muteStatus == true ? $('#mutebt').css('background-image', 'url(images/mute.png)') : $('#mutebt').css('background-image', 'url(images/unmute.png)');
+			  	videojs("video_1").ready(function(){
+				 	 this.muted(muteStatus);
+			 	});
+			 	isMute = muteStatus;
+			 }
+			 init();
+		});
+	</script>
+</head>
+
+<body>
+
+	<div id="masthead">
+	
+		<a href="http://google.com" target="_blank"><div id="bgImage"></div></a>
+ 		<div class="message">Hello i am a camp message</div>
+ 		<div class="logo"><img src="images/logo.png"/></div>
+ 		<div class="videoPlayer">
+                    
+        </div>
+        
+        <div id="mutebt"></div>
+	</div>
+</body>
+</html>
