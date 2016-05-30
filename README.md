@@ -3,12 +3,6 @@
 
 For DoubleClick Ad Server(DFP) Ad Template
 
-
-
-<b>Demo Link</b>
-```
-http://interaktif.ntv.com.tr/masthead-html5/
-```
 <b>Usage</b>
 
 ```
