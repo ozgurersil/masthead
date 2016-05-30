@@ -1,7 +1,7 @@
 # HTML5 MASTHEAD TEMPLATE
 
 
-For doubleclick ad server(DFP) ad template
+For DoubleClick Ad Server(DFP) Ad Template
 
 
 
